@@ -19,6 +19,10 @@ The default ruleset is 110, it can be changed by editing the `ruleset` constant,
 
 Falling sand generator.
 
+## Flow field
+
+Flow field with vectors.
+
 ## Spline curve
 
 Spline curve tests. Use the key arrow to move a point. Press A or Z key to change the selected point.
