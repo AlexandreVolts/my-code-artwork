@@ -9,6 +9,10 @@
 
 **Projects marked with (old) are more than 5 years old, and do not require these commands. They can be run by droping directly the index.html file in a browser.**
 
+## Apollonian Gasket Fractal
+
+Generation of an Apollonian Gasket Fractal using imaginary numbers and Descartes theorem.
+
 ## Elementary Celular Automata
 
 A binary celular automata using a given ruleset to be generated. <br />
