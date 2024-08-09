@@ -22,3 +22,7 @@ Firework generator.
 ## (old) Flower
 
 Flower generator.
+
+## Spline curve
+
+Spline curve tests. Use the key arrow to move a point. Press A or Z key to change the selected point.
