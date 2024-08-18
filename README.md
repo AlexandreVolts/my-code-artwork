@@ -27,6 +27,10 @@ Falling sand generator.
 
 Flow field with vectors.
 
+## Paper marbling
+
+Simulation paper marbling technique with deformation formulas. Press any key to add a drop. Drag to tine the drops. Press enter to reset.
+
 ## Spline curve
 
 Spline curve tests. Use the key arrow to move a point. Press A or Z key to change the selected point.
