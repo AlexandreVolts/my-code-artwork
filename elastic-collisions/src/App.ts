@@ -1,36 +1,38 @@
-import { Circle } from "./Circle";
+import { Ball } from "./Ball";
 import { rand } from "./rand";
+import { Table } from "./Table";
 
 export class App {
-  public static readonly WIDTH = 800 * (9 / 16);
-  public static readonly HEIGHT = 800;
   private readonly canvas: HTMLCanvasElement;
   private readonly ctx: CanvasRenderingContext2D;
   private lastElapedTime = 0;
 
-  private readonly circles: Circle[] = [];
+  private readonly balls: Ball[] = [];
+  private readonly table = new Table();
 
   constructor() {
     this.canvas = document.getElementsByTagName("canvas")[0];
-    this.canvas.width = App.WIDTH;
-    this.canvas.height = App.HEIGHT;
+    this.canvas.width = this.table.width + Table.BORDER_THICKNESS * 2;
+    this.canvas.height = this.table.height + Table.BORDER_THICKNESS * 2;
     this.ctx = this.canvas.getContext("2d")!;
-    for (let i = 0; i < 1000; i++) {
-      this.circles.push(new Circle(rand(0, App.WIDTH), rand(0, App.HEIGHT)));
+    for (let i = 0; i < 50; i++) {
+      this.balls.push(new Ball(rand(0, this.table.width), rand(0, this.table.height)));
     }
     this.render();
   }
 
   public update(delta: number) {
-    this.circles.forEach((c1, index) => {
-      c1.update(delta);
-      this.circles.slice(index).forEach((c2) => c1 !== c2 && c1.collide(c2));
+    this.balls.forEach((ball1, index) => {
+      ball1.update(delta);
+      ball1.bounce(this.table);
+      this.balls.slice(index).forEach((ball2) => ball1 !== ball2 && ball1.collide(ball2));
     });
   }
 
   public draw() {
-    this.ctx.clearRect(0, 0, App.WIDTH, App.HEIGHT);
-    this.circles.forEach((circle) => circle.draw(this.ctx));
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.table.draw(this.ctx);
+    this.balls.forEach((circle) => circle.draw(this.ctx));
   }
 
   public render = (elapsedTime = 0) => {
