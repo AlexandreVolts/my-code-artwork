@@ -1,4 +1,5 @@
 import { Ball } from "./Ball";
+import { Env } from "./Env";
 import { rand } from "./rand";
 import { Table } from "./Table";
 
@@ -12,8 +13,8 @@ export class App {
 
   constructor() {
     this.canvas = document.getElementsByTagName("canvas")[0];
-    this.canvas.width = this.table.width + Table.BORDER_THICKNESS * 2;
-    this.canvas.height = this.table.height + Table.BORDER_THICKNESS * 2;
+    this.canvas.width = this.table.width + Env.TABLE_BORDER * 2;
+    this.canvas.height = this.table.height + Env.TABLE_BORDER * 2;
     this.ctx = this.canvas.getContext("2d")!;
     for (let i = 0; i < 50; i++) {
       this.balls.push(new Ball(rand(0, this.table.width), rand(0, this.table.height)));
@@ -22,10 +23,10 @@ export class App {
   }
 
   public update(delta: number) {
-    this.balls.forEach((ball1, index) => {
-      ball1.update(delta);
-      ball1.bounce(this.table);
-      this.balls.slice(index).forEach((ball2) => ball1 !== ball2 && ball1.collide(ball2));
+    this.balls.forEach((ball, index) => {
+      ball.update(delta);
+      ball.bounce(this.table);
+      this.balls.slice(index).forEach((b) => ball !== b && ball.collide(b));
     });
   }
 
