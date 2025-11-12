@@ -46,14 +46,16 @@ export class Tile {
 
     for (let i = 0; i < this.size - Math.abs(dx); i++) {
       for (let j = 0; j < this.size - Math.abs(dy); j++) {
-        const thisIndex = i + (dx === 1 ? 1 : 0) + (j + (dy === 1 ? 1 : 0)) * 4;
+        const thisIndex =
+          (i + (dx === 1 ? 1 : 0) + (j + (dy === 1 ? 1 : 0)) * this.size) * 4;
         const otherIndex =
-          i + (dx === -1 ? 1 : 0) + (j + (dy === -1 ? 1 : 0)) * 4;
+          (i + (dx === -1 ? 1 : 0) + (j + (dy === -1 ? 1 : 0)) * this.size) * 4;
 
         if (
           !arePixelsEquals(
-            this.data.slice(thisIndex, thisIndex + 3),
-            other.data.slice(otherIndex, otherIndex + 3)
+            this.data.slice(thisIndex, thisIndex + 4),
+            other.data.slice(otherIndex, otherIndex + 4),
+            2
           )
         ) {
           return false;
@@ -81,5 +83,21 @@ export class Tile {
         ctx.fillRect(x + i * s, y + j * s, s, s);
       }
     }
+  }
+
+  public drawCenterPixel(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    size: number
+  ) {
+    const center = ~~(this.size / 2);
+
+    ctx.fillStyle = this.getColor(center, center);
+    ctx.fillRect(x + center * size, y + center * size, size, size);
+  }
+
+  public getPossibleAdjacentTiles(dir: Direction): Readonly<number[]> {
+    return this.adjacents[dir];
   }
 }

@@ -1,5 +1,5 @@
 import { App } from "./App";
-import { Direction } from "./Direction";
+import { Direction, dirs } from "./Direction";
 import { Tile } from "./Tile";
 
 export class ImageDataset {
@@ -56,9 +56,7 @@ export class ImageDataset {
       }
     }
 
-    for (const dir of Object.values(Direction).filter(
-      (v) => typeof v === "number"
-    )) {
+    for (const dir of dirs) {
       for (let t1 of output) {
         for (let t2 of output) {
           if (t1.isOverlaping(t2, dir)) {
