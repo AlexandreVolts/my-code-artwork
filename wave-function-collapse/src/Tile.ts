@@ -62,6 +62,7 @@ export class Tile {
         }
       }
     }
+
     return true;
   }
 

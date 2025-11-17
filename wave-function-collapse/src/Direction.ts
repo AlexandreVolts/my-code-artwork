@@ -5,6 +5,9 @@ export enum Direction {
   TOP = Math.PI + Math.PI / 2,
 }
 
-export const dirs = Object.values(Direction).filter(
-  (dir) => typeof dir === "number"
-);
+export const dirs: Direction[] = [
+  Direction.RIGHT,
+  Direction.BOTTOM,
+  Direction.LEFT,
+  Direction.TOP,
+];

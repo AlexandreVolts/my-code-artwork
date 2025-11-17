@@ -5,12 +5,12 @@ import { Tile } from "./Tile";
 export class App {
   public static readonly WIDTH = window.innerWidth;
   public static readonly HEIGHT = window.innerHeight;
+  private static readonly CELL_SIZE = 10;
   private readonly canvas: HTMLCanvasElement;
   private readonly ctx: CanvasRenderingContext2D;
-  private readonly grid: Grid = new Grid(25);
+  private grid?: Grid;
   private tiles: Tile[] = [];
   private lastDeltaTime = 0;
-  private elapsedTime = 0;
 
   constructor() {
     this.canvas = document.getElementsByTagName("canvas")[0];
@@ -25,18 +25,12 @@ export class App {
     const image = new ImageDataset(
       this.ctx,
       document.getElementById("sample") as HTMLImageElement,
-      9,
-      9
     );
     this.tiles = image.extractTiles(3);
-    this.grid?.set(0, 0, this.tiles[~~(Math.random() * this.tiles.length)]);
+    this.grid = new Grid(App.CELL_SIZE, this.tiles.length);
   }
 
-  public update(delta: number) {
-    this.elapsedTime += delta;
-    if (this.elapsedTime < 0.2) return;
-    this.elapsedTime = 0;
-
+  public update(_delta: number) {
     this.grid?.reduceEntropy(this.tiles);
   }
   public render = (elapsedTime: number) => {

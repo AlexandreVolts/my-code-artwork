@@ -5,14 +5,9 @@ import { Tile } from "./Tile";
 export class ImageDataset {
   private readonly data: Readonly<ImageData>;
 
-  constructor(
-    ctx: CanvasRenderingContext2D,
-    img: HTMLImageElement,
-    width: number,
-    height: number
-  ) {
+  constructor(ctx: CanvasRenderingContext2D, img: HTMLImageElement) {
     ctx.drawImage(img, 0, 0);
-    this.data = ctx.getImageData(0, 0, width, height);
+    this.data = ctx.getImageData(0, 0, img.width, img.height);
     ctx.clearRect(0, 0, App.WIDTH, App.HEIGHT);
   }
 
@@ -33,8 +28,8 @@ export class ImageDataset {
   ): Tile {
     const pixels: number[] = [];
 
-    for (let i = x; i < x + tileSize; i++) {
-      for (let j = y; j < y + tileSize; j++) {
+    for (let j = y; j < y + tileSize; j++) {
+      for (let i = x; i < x + tileSize; i++) {
         const dx = i % data.width;
         const dy = j % data.height;
         const index = (dx + dy * data.width) * 4;
